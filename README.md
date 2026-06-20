@@ -4,9 +4,13 @@ Winst GameLauncher
 This software is provided as-is. It does not include any kind of warranty. You are responsible for any consequences of its use. It does not perform any verification of applications, commands or, games you run.
 
 # Version name meaning
-Each public version follows this format: <major>.<minor>.<hotfix>.<type(BC - breaking changes, CM - compatibility, SF - security fix, BF - bugfix, 00 - initial release)>.<date of release in DD-MM-YYYY format>
+Each public version follows this format:
+<major>.<minor>.<hotfix>.<type(BC - breaking changes, CM - compatibility, SF - security fix, BF - bugfix, 00 - initial release)>.<date of release in DD-MM-YYYY format>
+
 An example(initial release, june 20th 2026) of this model is: 1.0.0.00-20-06-2026
+
 Each public version carries a list of private versions versioned like so: <version base, no date, no type>.<type>.<index, 01-99>
+
 Each private version can be found in releases tab, in changelog.
 
 # usage
