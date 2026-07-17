@@ -1,14 +1,33 @@
 from os import path as osp
+import builtins
 from pathlib import Path as plibp
 from os import listdir, mkdir, remove
 from shutil import rmtree
 import shlex, subprocess, builtins
+import wgl_plugins as _Plugins
 
 debug = builtins.__wlauncher_debug__
 
+plugins = []
+for name in dir(_Plugins):
+    if not callable(getattr(_Plugins, name)):
+        if hasattr(getattr(_Plugins, name), "__plugin__"):
+            print(f"Loaded plugin : {name}\n"*debug, end="")
+            plugins.append(name)
+
+addonslist = []
+for plugin in plugins:
+    if hasattr(getattr(_Plugins, plugin), "__library__"):
+        if callable(getattr(getattr(_Plugins, plugin), "__library__")):
+           for I in getattr(getattr(_Plugins, plugin), "__library__")():
+               addonslist.append(I)
+
+
+
+
 home = str(plibp.home())
 
-games = []
+games = addonslist
 
 if osp.exists(f"{home}/.winst-gamelauncher/games.txt") and osp.exists(f"{home}/.winst-gamelauncher/games.d") and not osp.isfile(f"{home}/.winst-gamelauncher/games.d"):
     with open(f"{home}/.winst-gamelauncher/games.txt") as file:
