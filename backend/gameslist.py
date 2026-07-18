@@ -3,7 +3,9 @@ import builtins
 from pathlib import Path as plibp
 from os import listdir, mkdir, remove
 from shutil import rmtree
-import shlex, subprocess, builtins
+import shlex
+import subprocess
+import builtins
 import wgl_plugins as _Plugins
 
 debug = builtins.__wlauncher_debug__
@@ -19,10 +21,8 @@ addonslist = []
 for plugin in plugins:
     if hasattr(getattr(_Plugins, plugin), "__library__"):
         if callable(getattr(getattr(_Plugins, plugin), "__library__")):
-           for I in getattr(getattr(_Plugins, plugin), "__library__")():
-               addonslist.append(I)
-
-
+            for I in getattr(getattr(_Plugins, plugin), "__library__")():
+                addonslist.append(I)
 
 
 home = str(plibp.home())
@@ -48,7 +48,8 @@ if osp.exists(f"{home}/.winst-gamelauncher/games.txt") and osp.exists(f"{home}/.
                             continue
                         phrazedl = Y.split(" : ")
                         if len(phrazedl) != 2:
-                            print(f"games.d/{I} - line invalid {Y}\n"*debug, end="")
+                            print(
+                                f"games.d/{I} - line invalid {Y}\n"*debug, end="")
                         else:
                             key = phrazedl[0].strip()
                             val = phrazedl[1].strip()
@@ -59,16 +60,20 @@ if osp.exists(f"{home}/.winst-gamelauncher/games.txt") and osp.exists(f"{home}/.
                                 name = val
                                 print(f"name set to {val}\n"*debug, end="")
                             else:
-                                print(f"games.d/{I} - invalid line {Y}\n"*debug, end="")
+                                print(
+                                    f"games.d/{I} - invalid line {Y}\n"*debug, end="")
                     if name == "":
-                        print(f"no name provided for {I}, skipping\n"*debug, end="")
+                        print(
+                            f"no name provided for {I}, skipping\n"*debug, end="")
                     elif binary == "":
-                        print(f"no binary provided for {I}, skipping\n"*debug, end="")
+                        print(
+                            f"no binary provided for {I}, skipping\n"*debug, end="")
                     else:
                         if osp.exists(shlex.split(binary)[0]):
                             games.append([name, binary])
                         else:
-                            print(f"binary of {I}({binary}) does NOT exist\n"*debug, end="")
+                            print(
+                                f"binary of {I}({binary}) does NOT exist\n"*debug, end="")
 else:
     Done = False
     fol = False
@@ -97,6 +102,7 @@ else:
         if file:
             if fol:
                 Done = True
-            
+
+
 def get_games():
     return games

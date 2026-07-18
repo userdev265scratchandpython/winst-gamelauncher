@@ -15,8 +15,11 @@ comdescs = {}
 for plugin in plugins:
     if hasattr(getattr(_Plugins, plugin), "__command__"):
         if callable(getattr(getattr(_Plugins, plugin), "__command__")):
-           commands[plugin] = getattr(getattr(_Plugins, plugin), "__command__")
-           comdescs[plugin] = getattr(getattr(_Plugins, plugin), "__command_desc__")()
+            commands[plugin] = getattr(
+                getattr(_Plugins, plugin), "__command__")
+            comdescs[plugin] = getattr(
+                getattr(_Plugins, plugin), "__command_desc__")()
+
 
 def __start__(gameslist, shlex, sys, subprocess):
     if len(sys.argv) < 2:
@@ -49,13 +52,13 @@ def __start__(gameslist, shlex, sys, subprocess):
         matching = []
         for I in games:
             if game.lower() == I[0].lower():
-                counter+=1
+                counter += 1
                 matching.append(I)
         if counter > 1:
             print("Multiple instances of game name found.")
             number = 0
             for I in matching:
-                number+=1
+                number += 1
                 print(f"{number}) {I[0]} - {I[1]}")
             a = int(input("launch which one(number, 0 to cancel)? "))
             if a == 0:
