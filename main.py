@@ -9,5 +9,5 @@ debug = False
 
 builtins.__wlauncher_debug__ = debug
 
-
+command_handling.start0(builtins=builtins, gameslist=gameslist)
 command_handling.__start__(gameslist, shlex, sys, subprocess)

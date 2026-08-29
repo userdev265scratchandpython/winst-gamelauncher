@@ -1,25 +1,24 @@
 import wgl_plugins as _Plugins
-import builtins
+def start0(gameslist, builtins):
+    global plugins, command, comdescs, debug
+    debug = debug = builtins.__wlauncher_debug__
+    plugins = []
+    for name in dir(_Plugins):
+        if not callable(getattr(_Plugins, name)):
+            if hasattr(getattr(_Plugins, name), "__plugin__"):
+                print(f"Loaded plugin : {name}\n"*debug, end="")
+                plugins.append(name)
 
-debug = builtins.__wlauncher_debug__
-
-plugins = []
-for name in dir(_Plugins):
-    if not callable(getattr(_Plugins, name)):
-        if hasattr(getattr(_Plugins, name), "__plugin__"):
-            print(f"Loaded plugin : {name}\n"*debug, end="")
-            plugins.append(name)
-
-commands = {}
-comdescs = {}
-for plugin in plugins:
-    if hasattr(getattr(_Plugins, plugin), "__command__"):
-        if callable(getattr(getattr(_Plugins, plugin), "__command__")):
-            commands[plugin] = getattr(
-                getattr(_Plugins, plugin), "__command__")
-            comdescs[plugin] = getattr(
-                getattr(_Plugins, plugin), "__command_desc__")()
-
+    commands = {}
+    comdescs = {}
+    for plugin in plugins:
+        if hasattr(getattr(_Plugins, plugin), "__command__"):
+            if callable(getattr(getattr(_Plugins, plugin), "__command__")):
+                commands[plugin] = getattr(
+                    getattr(_Plugins, plugin), "__command__")
+                comdescs[plugin] = getattr(
+                    getattr(_Plugins, plugin), "__command_desc__")()
+    gameslist.start0(debug)
 
 def __start__(gameslist, shlex, sys, subprocess):
     if len(sys.argv) < 2:
