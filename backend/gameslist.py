@@ -7,7 +7,7 @@ import subprocess
 import builtins
 import wgl_plugins as _Plugins
 def start0(debugd):
-    global debug, plugins, addonslist, home, games, done
+    global debug, plugins, addonslist, home, games, done, gfol, gfil
     debug = debugd
     plugins = []
     for name in dir(_Plugins):
@@ -27,6 +27,8 @@ def start0(debugd):
     home = str(plibp.home())
 
     games = addonslist
+    gfol = []
+    gfil = []
 
     if osp.exists(f"{home}/.winst-gamelauncher/games.txt") and osp.exists(f"{home}/.winst-gamelauncher/games.d") and not osp.isfile(f"{home}/.winst-gamelauncher/games.d"):
         with open(f"{home}/.winst-gamelauncher/games.txt") as file:
@@ -36,6 +38,7 @@ def start0(debugd):
                     print(f"games.txt - line invalid : {I}\n"*debug, end="")
                 else:
                     print(f"found {info[0]} at {info[1]}\n"*debug, end="")
+                    gfil.append(info[0])
                     games.append(info)
             for I in listdir(f"{home}/.winst-gamelauncher/games.d"):
                 if osp.isfile(f"{home}/.winst-gamelauncher/games.d/{I}"):
@@ -66,6 +69,7 @@ def start0(debugd):
                         else:
                             if osp.exists(shlex.split(binary)[0]):
                                 games.append([name, binary])
+                                gfol.append(name)
                             else:
                                 print(f"binary of {I}({binary}) does NOT exist\n"*debug, end="")
     else:
@@ -99,4 +103,4 @@ def start0(debugd):
 
 
 def get_games():
-    return games
+    return games, gfol, gfil

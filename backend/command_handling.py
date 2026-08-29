@@ -23,19 +23,36 @@ def start0(gameslist, builtins):
 def __start__(gameslist, shlex, sys, subprocess):
     if len(sys.argv) < 2:
         print(f"Usage : {sys.argv[0]} [function]")
-        print("Functions : ")
-        print("- list          :  list games")
-        print("- launch <game> : open <game>")
+        print("Official functions: ")
+        print("- list          :                                     list games")
+        print("- launch <game> :                                    open <game>")
+        print("- cinfo <game>  : information about where the game entry is from")
+        hasaddons = len(comdescs) > 0
+        print("Add-ons: \n"*hasaddons, end="")
         for I in comdescs:
             print(I + " : " + comdescs[I])
+        print("Information")
         print("To add games, edit '<homepath>/.winst-gamelauncher/games.txt' or add a formatted file following the wiki in '<homepath>/.winst-gamelauncher/games.d' where '<homepath>' is your user's folder.")
         exit()
 
     def run_command(command):
         subprocess.run(shlex.split(command))
+    gs = {}
+    games, gs['fol'], gs['fil'] = gameslist.get_games()
 
-    games = gameslist.get_games()
-
+    def cinfo(name=None):
+        if name == None:
+            print("Please provide a name.")
+        else:
+            if name in games:
+                if name in gs['fol']:
+                    print("Entry source: games list DIR")
+                elif name in gs['fil']:
+                    print("Entry source: Games list FILE")
+                else:
+                    print("Entry source: Addon")
+            else:
+                print("Game not found.")
     def list():
         longest = 0
         for I in games:
