@@ -44,12 +44,25 @@ def __start__(gameslist, shlex, sys, subprocess):
         if name == None:
             print("Please provide a name.")
         else:
-            if name in games:
-                if name in gs['fol']:
-                    print("Entry source: games list DIR")
-                elif name in gs['fil']:
-                    print("Entry source: Games list FILE")
-                else:
+            gnames = []
+            gsources = []
+            for game in games:
+                gnames.append(game[0])
+            gsources = [gs['fol'], gs['fil']]
+            if name in gnames:
+                sg = False
+                source: 0
+                for X in gsources:
+                    for I in X:
+                        if X == gsources[0]:
+                            if name == I:
+                                print("Entry source: games list DIR")
+                                sg = True
+                        elif name in gs['fil']:
+                            if name == I:
+                                print("Entry source: Games list FILE")
+                                sg = True
+                if not sg:
                     print("Entry source: Addon")
             else:
                 print("Game not found.")
@@ -94,6 +107,11 @@ def __start__(gameslist, shlex, sys, subprocess):
             print("Error: command launch requires a game name following it.")
         else:
             launch(sys.argv[2])
+    elif sys.argv[1] == "cinfo":
+        if len(sys.argv) == 2:
+            print("Error: command launch requires a game name following it.")
+        else:
+            cinfo(sys.argv[2])
     else:
         if sys.argv[1] in commands:
             commands[sys.argv[1]](sys.argv[2:] if len(sys.argv) > 2 else [])
