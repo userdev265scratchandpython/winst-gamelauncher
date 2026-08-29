@@ -17,6 +17,7 @@ Each private version can be found in releases tab, in changelog.
 This launcher can be used in these ways:
 - list    : list games that you added
 - launch  : launch a game from the list of games you added
+- cinfo   : get a game's entry provider
 
 # editing lists(adding or removing games)
 
