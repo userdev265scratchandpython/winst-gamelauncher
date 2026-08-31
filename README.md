@@ -1,3 +1,5 @@
+![Winst-gamelauncher Banner](images/Thumb.png)
+
 Winst GameLauncher
 
 # Preamble
